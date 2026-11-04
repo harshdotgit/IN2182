@@ -1,3 +1,10 @@
+## Task
+**b**
+no no
+yes yes
+no yes
+
+
 ## Questions
 
 **Q1** What is the type of the transition matrix of the game? What properties does it possess?
