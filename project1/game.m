@@ -63,20 +63,23 @@ function varargout = game(varargin)
 %%%
 % Begin initialization code --- DO NOT EDIT ---
 %%%
-gui_Singleton = 1;
-gui_State = struct('gui_Name',       mfilename, ...
-    'gui_Singleton',  gui_Singleton, ...
-    'gui_OpeningFcn', @game_OpeningFcn, ...
-    'gui_OutputFcn',  @game_OutputFcn, ...
-    'gui_LayoutFcn',  [] , ...
-    'gui_Callback',   []);
+gui_Singleton = 1; % only one game instance opened at a time
+gui_State = struct('gui_Name',       mfilename, ...  % window configuration
+    'gui_Singleton',  gui_Singleton, ... 
+    'gui_OpeningFcn', @game_OpeningFcn, ... % Initializes default parameters
+    'gui_OutputFcn',  @game_OutputFcn, ... % Function handling outputs to the command line
+    'gui_LayoutFcn',  [] , ... % Empty, as layout is loaded from the .fig file
+    'gui_Callback',   []); % Handles console commands
 if nargin && ischar(varargin{1})
-    gui_State.gui_Callback = str2func(varargin{1});
+    % If called with a string argument (e.g., a button click)
+    gui_State.gui_Callback = str2func(varargin{1}); % Convert string to function handle
 end
 
 if nargout
+    % If outputs are expected, run GUI and return outputs
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
+    % Otherwise, just run the GUI
     gui_mainfcn(gui_State, varargin{:});
 end
 %%%
@@ -118,7 +121,7 @@ function testChoice(userchoice,handles)
 global history nowins nolosses nodraws results
 switch userchoice
     case 1 % rock
-        if history(end,1) == 3
+        if history(end,1) == 3 %last row, first column
             nowins = nowins + 1;
             result = 'You win, computer chose scissors!';
         elseif history(end,1) == 1
@@ -154,11 +157,11 @@ end
 handles.textlosses.String = strcat('Losses: ',num2str(nolosses));
 handles.textwins.String = strcat('Wins: ',num2str(nowins));
 handles.textdraws.String = strcat('Draws: ',num2str(nodraws));
-norounds = size(history,1);
+norounds = size(history,1); % the numbers of rows in history
 handles.textround.String = strcat('Round: ',num2str(norounds));
 handles.textresult.String = result;
 results = [results,nowins-nolosses];
-history(end,2) = userchoice;
+history(end,2) = userchoice; % last user choice saved
 
 if norounds == 1
     line([1,1],[0,results],'Parent',handles.axes,'LineWidth',3)

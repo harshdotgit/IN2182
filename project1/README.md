@@ -17,6 +17,14 @@ transm converges to
 
 1 0 0
 
+**e)** 
+
+transm2 converges to
+
+0 1 0
+1 0 0 
+1 0 0
+
 
 ## Questions
 

@@ -102,10 +102,10 @@ transm = updatetransm(samplem);
 function transm = updatetransm(samplem)
 % update transition matrix
 
-w = sum(samplem,2);
-transm = zeros(3);
+w = sum(samplem,2); % Calculate the sum of each row (total moves after 'i')
+transm = zeros(3); %Create an empty 3x3 matrix filled with zeros
 for i=1:size(samplem,1)
-    transm(i,:) = samplem(i,:)./w(i);
+    transm(i,:) = samplem(i,:)./w(i); % Divide each cell in the row by the row's total sum - probabilities
 end
 
 function samplem = updatesamplem(i,j,sample)
